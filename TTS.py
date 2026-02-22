@@ -1,17 +1,9 @@
-import pyttsx3
+import win32com.client
 
-engine = pyttsx3.init()
+speaker = win32com.client.Dispatch("SAPI.SpVoice")
 
-def speak_label(label: str):
+def speak(text: str):
     """
-    Converts a label, i.e. 'This is a photo of banana.'
-    to a sentence, i.e. 'You are looking at a banana.'
-    Uses TTS to speak it out loud.
+    Uses Windows SAPI5 to speak text outloud.
     """
-    prefix = "This is a photo of "
-    if label.startswith(prefix):
-        label = label[len(prefix):]
-    spoken = f"You are looking at a {label}"
-
-    engine.say(spoken)
-    engine.runAndWait()
+    speaker.Speak(text)
